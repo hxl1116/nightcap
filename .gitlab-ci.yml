@@ -1,0 +1,15 @@
+image:
+  name: node:12
+cache:
+  paths:
+  - node_modules/
+before_script:
+  - yarn install
+  - node --version
+pages:
+  stage: deploy
+  script:
+    - ls -lFa public
+  artifacts:
+    paths:
+    - public
