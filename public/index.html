@@ -5,8 +5,26 @@
     <title>Nightclub Capacity App</title>
     <meta name="description" content="Nightclub Setup">
     <meta name="author" content="Henry Larson">
+    <script src="index.js"></script>
 </head>
 <body>
-
+<h1>SWEN-344 Web Assignment 0</h1>
+<h2>Section 01</h2>
+<label for="club-names-select"></label>
+<select name="club-names" id="club-names-select" onchange="handleSelect()">
+    <option value="none" selected></option>
+    <option value="club-arcane">Club Arcane</option>
+    <option value="club-underground">Club Underground</option>
+    <option value="club-soda">Club Soda</option>
+    <option value="studio-52">Studio 52</option>
+    <option value="ciros">Ciro's</option>
+    <option value="paradisio-garage">Paradisio Garage</option>
+</select>
+<div id="club-info">
+    <p id="club-name"></p>
+    <p id="club-loc"></p>
+    <p id="club-cap"></p>
+    <p id="club-theme"></p>
+</div>
 </body>
 </html>
