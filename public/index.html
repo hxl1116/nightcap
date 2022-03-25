@@ -7,20 +7,21 @@
     <meta name="author" content="Henry Larson">
     <script src="index.js"></script>
 </head>
-<body>
-<h1>SWEN-344 Web Assignment 0</h1>
-<h2>Section 01</h2>
+<body style="font-family: 'Segoe UI', sans-serif; font-size: 16px; display: flex; flex-direction: column; align-items: center; text-align: center">
+<h1 style="font-family: Verdana, sans-serif; font-weight: bold; font-size: 36px;">SWEN-344 Web Assignment 0</h1>
+<h2 style="font-family: Impact, sans-serif">Section 01</h2>
 <label for="club-names-select"></label>
-<select name="club-names" id="club-names-select" onchange="handleSelect()">
+<select name="club-names" id="club-names-select" onchange="handleSelect(this)">
     <option value="none" selected></option>
-    <option value="club-arcane">Club Arcane</option>
-    <option value="club-underground">Club Underground</option>
-    <option value="club-soda">Club Soda</option>
-    <option value="studio-52">Studio 52</option>
-    <option value="ciros">Ciro's</option>
-    <option value="paradisio-garage">Paradisio Garage</option>
+    <option value="0">Club Arcane</option>
+    <option value="1">Club Underground</option>
+    <option value="2">Club Soda</option>
+    <option value="3">Studio 52</option>
+    <option value="4">Ciro's</option>
+    <option value="5">Paradisio Garage</option>
 </select>
-<div id="club-info">
+<div id="club-info"
+     style="min-height: 20vh; min-width: 20vh; margin-top: 25px; padding: 10px 20px; border: 1px solid black">
     <p id="club-name"></p>
     <p id="club-loc"></p>
     <p id="club-cap"></p>
