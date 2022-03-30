@@ -4,8 +4,12 @@ $(document).ready(() => {
     // Add event handlers
     $('#decrement').click(() => {
         handleDecrement()
+        // console.log(activeClub, capacities[activeClub].volume)
     })
-    $('#increment').click(handleIncrement)
+    $('#increment').click(() => {
+        handleIncrement()
+        // console.log(activeClub, capacities[activeClub].volume)
+    })
 })
 
 // Club capacity levels
@@ -76,13 +80,18 @@ const init = () => {
         $('#club-opts').append(
             $('<label>')
                 .text(club.name),
-            $(`<input id="${club.name}-opt" name="" type="radio">`).click(() => {
+            $(`<input id="${club.name}-opt" name="club-opt" type="radio">`).click(() => {
                 activeClub = club.name
+                // console.log(activeClub)
             })
         )
+
+        // Init club volume
+        capacities[club.name] = {volume: 0}
     }
 }
 
+// TODO: Combine with reducer, handle increment/decrement after check
 const handleStatus = () => {
     let club = CLUBS.filter(club => club.name !== activeClub)
     let volume = capacities[activeClub].volume
@@ -93,11 +102,20 @@ const handleStatus = () => {
 }
 
 const handleDecrement = () => {
-    capacities[activeClub].volume--
+    let volume = capacities[activeClub].volume
+
+    // Decrement if volume is positive
+    if (volume !== 0) capacities[activeClub].volume--
+
+    // Handle status message
     handleStatus()
 }
 
 const handleIncrement = () => {
-    capacities[activeClub].volume--
+    let club = CLUBS.filter(club => club.name !== activeClub)
+    let volume = capacities[activeClub].volume
+
+    if (volume !== club.capacity) capacities[activeClub].volume++
+
     handleStatus()
 }
