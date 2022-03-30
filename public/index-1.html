@@ -3,8 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <title>Nightclub Capacity Tracker</title>
+    <link rel="stylesheet" href="club.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 </head>
 <body>
-
+<h1>Nightclub Capacity</h1>
+<h3>Each time someone enters/leaves the club, select the correct club and click the appropriate button</h3>
+<ol id="clubs-list"></ol>
+<form id="clubs-control">
+    <ul id="club-opts"></ul>
+    <button id="decrement">-</button>
+    <button id="increment">+</button>
+</form>
+<script src="club.js"></script>
 </body>
 </html>
