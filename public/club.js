@@ -2,13 +2,12 @@ $(document).ready(() => {
     init()
 
     // Add event handlers
-    $('#decrement').click(() => {
-        handleDecrement()
-        // console.log(activeClub, capacities[activeClub].volume)
-    })
     $('#increment').click(() => {
         handleIncrement()
-        // console.log(activeClub, capacities[activeClub].volume)
+    })
+
+    $('#decrement').click(() => {
+        handleDecrement()
     })
 })
 
@@ -32,39 +31,46 @@ const CAPACITIES = {
 const CLUBS = [
     {
         id: 1,
-        name: 'club-arcane',
+        name: 'clubArcane',
         text: 'Club Arcane',
         capacity: 100,
         threshold: 70
     },
     {
         id: 2,
-        name: 'club-underground',
+        name: 'clubUnderground',
         text: 'Club Underground',
         capacity: 50,
         threshold: 30
     },
     {
         id: 3,
-        name: 'club-soda',
+        name: 'clubSoda',
         text: 'Club Soda',
         capacity: 20,
         threshold: 12
     },
     {
         id: 4,
-        name: 'studio-52',
+        name: 'studio52',
         text: 'Studio 52',
         capacity: 52,
         threshold: 32
     }
 ]
 
+// The currently selected club's name
 let activeClub = null
-let capacities = {}
+
+// The current volume of each club
+let volumes = {}
 
 const init = () => {
     for (let club of CLUBS) {
+        // Init club volume
+        volumes[club.name] = 0
+
+
         // Insert club display elements
         $('#clubs-list').append(
             $(`<div class="club-display" id="${club.name}-display">`).append(
@@ -72,7 +78,7 @@ const init = () => {
                     $('<p class="club-name">').text(club.text),
                     $('<p class="club-msg">')
                 ),
-                $('<p class="cap-count">')
+                $('<p class="cap-count">').text(volumes[club.name])
             )
         )
 
@@ -82,40 +88,67 @@ const init = () => {
                 .text(club.name),
             $(`<input id="${club.name}-opt" name="club-opt" type="radio">`).click(() => {
                 activeClub = club.name
-                // console.log(activeClub)
             })
         )
-
-        // Init club volume
-        capacities[club.name] = {volume: 0}
     }
 }
 
-// TODO: Combine with reducer, handle increment/decrement after check
-const handleStatus = () => {
-    let club = CLUBS.filter(club => club.name !== activeClub)
-    let volume = capacities[activeClub].volume
+const handleStatus = ({action}) => {
+    let club = CLUBS.filter(club => club.name === activeClub).pop()
+    let vol = volumes[activeClub]
+    let msg = null
 
-    if (volume < club.threshold) return CAPACITIES.normal
-    else if (volume >= club.threshold && volume < club.capacity) return CAPACITIES.caution
-    else return CAPACITIES.restricted
-}
+    switch (action) {
+        case 'increment':
+            // If club volume is between threshold and max capacity
+            if (vol >= club.threshold && vol < club.capacity) {
+                volumes[activeClub] += 1
+                msg = CAPACITIES.caution
+                break
+            }
+            // If club volume is less than threshold
+            else if (vol < club.threshold) {
+                volumes[activeClub] += 1
+                msg = CAPACITIES.normal
+                break
+            }
+            // If club volume is at capacity
+            else {
+                msg = CAPACITIES.restricted
+                break
+            }
+        case 'decrement':
+            // If club volume is between threshold and max capacity
+            if (vol >= club.threshold && vol < club.capacity) {
+                msg = CAPACITIES.caution
+                break
+            }
+            // If club volume is less than threshold
+            else if (vol < club.threshold) {
+                msg = CAPACITIES.normal
+                break
+            }
+            // If club volume is at capacity
+            else {
+                msg = CAPACITIES.restricted
+                break
+            }
+        default:
+            throw new Error(`Unknown action: ${action}`)
+    }
 
-const handleDecrement = () => {
-    let volume = capacities[activeClub].volume
-
-    // Decrement if volume is positive
-    if (volume !== 0) capacities[activeClub].volume--
-
-    // Handle status message
-    handleStatus()
+    $(`#${activeClub}-display p.cap-count`).text(volumes[activeClub])
+    $(`#${activeClub}-display p.club-msg`).text(msg.message)
 }
 
 const handleIncrement = () => {
-    let club = CLUBS.filter(club => club.name !== activeClub)
-    let volume = capacities[activeClub].volume
+    handleStatus({action: 'increment'})
+}
 
-    if (volume !== club.capacity) capacities[activeClub].volume++
+const handleDecrement = () => {
+    let volume = volumes[activeClub]
 
-    handleStatus()
+    if (volume > 0) volumes[activeClub] -= 1
+
+    handleStatus({action: 'decrement'})
 }
