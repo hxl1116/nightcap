@@ -12,4 +12,4 @@ pages:
     - ls -lFa public
   artifacts:
     paths:
-    - public/index-1.html
+    - public
