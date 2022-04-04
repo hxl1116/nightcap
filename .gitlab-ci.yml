@@ -23,7 +23,7 @@ cache:
 
 before_script:
   - *script-create-dir #This has to run before you change paths
-  - cd $APP_NAME #Go to your sub-directory path, so yarn and npm work
+  - cd $APP_NAME #Go to your subdirectory path, so yarn and npm work
   - pwd
   - npm install
   - node --version
