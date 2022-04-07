@@ -29,6 +29,22 @@ export const CLUBS = [
     }
 ]
 
+// Club capacity levels
+export const CAP_MSG = {
+    normal: {
+        color: '#94d2bd',
+        message: 'Welcome!'
+    },
+    caution: {
+        color: '#ca6702',
+        message: 'Warn the bouncers...'
+    },
+    restricted: {
+        color: '#ae2012',
+        message: 'No one allowed in!'
+    }
+}
+
 
 export const init = (clubs) => {
     let volumes = {}
@@ -40,19 +56,29 @@ export const init = (clubs) => {
 }
 
 export const clubReducer = (state, action) => {
-    let vol = state[action.payload]
+    let club = CLUBS[action.payload]
+    let vol = state[club.name]
 
+    // Check for increment/decrement
     switch (action.type) {
         case 'increment':
-            return {
-                ...state,
-                [action.payload]: vol + 1
-            }
+            // Ensure club volume is below or at club capacity
+            if (vol < club.capacity)
+                return {
+                    ...state,
+                    [club.name]: vol + 1
+                }
+            // Bail out
+            else return state
         case 'decrement':
-            return {
-                ...state,
-                [action.payload]: vol - 1
-            }
+            // Ensure club volume is zero or more
+            if (vol > 0)
+                return {
+                    ...state,
+                    [club.name]: vol - 1
+                }
+            // Bail out
+            else return state
         case 'reset':
             return init(action.payload)
         default:

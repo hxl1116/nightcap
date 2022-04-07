@@ -1,29 +1,29 @@
-import React, {useLayoutEffect, useReducer, useState} from "react";
-
-import Club from "./components/Club";
-import ClubControl from "./components/ClubControl";
+import React, {useReducer, useState} from "react";
 
 import {clubReducer, CLUBS, init} from "./util";
+import Club from "./components/Club";
+import ClubControl from "./components/ClubControl";
 
 
 function App() {
     const [active, setActive] = useState(null)
-    const [volumes, dispatch] = useReducer(clubReducer, [], init)
-
-    // Init club volumes
-    useLayoutEffect(() => {
-        // noinspection JSCheckFunctionSignatures
-        dispatch({type: 'reset', payload: CLUBS})
-    }, [])
+    const [volumes, dispatch] = useReducer(clubReducer, CLUBS, init)
 
     return (
-        <div className="container">
-            <ul>
-                {CLUBS.map(club => <Club key={club.name}/>)}
-            </ul>
-            <ClubControl clubs={CLUBS} active={active} disp={dispatch} setActive={setActive}/>
-        </div>
-    );
+        <>
+            <header>
+                <h1>Nightclub Capacity</h1>
+                <h3>Each time someone enters/leaves the club, select the correct club and click the appropriate
+                    button</h3>
+            </header>
+            <div className="container">
+                <ul>
+                    {CLUBS.map(club => <Club key={club.name} {...club} volume={volumes[club.name]}/>)}
+                </ul>
+                <ClubControl clubs={CLUBS} active={active} disp={dispatch} setActive={setActive}/>
+            </div>
+        </>
+    )
 }
 
 export default App;
