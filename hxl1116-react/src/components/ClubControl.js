@@ -9,19 +9,23 @@ const ClubControl = ({clubs, active, disp, setActive}) => {
         disp({type: 'decrement', payload: active})
     }
 
+    const handleClick = (idx) => {
+        setActive(idx)
+    }
+
     return (
         <>
-            <ul>
+            <ul id="club-opts">
                 {clubs.map(({name, text}, idx) => (
                     <label key={`opt${name}`}>
                         {text}
-                        <input type="radio" name="club-opt" onClick={() => setActive(idx)}/>
+                        <input type="radio" name="club-opt" onClick={() => handleClick(idx)}/>
                     </label>
                 ))}
             </ul>
-            <div>
-                <button onClick={decrement}>-</button>
-                <button onClick={increment}>+</button>
+            <div id="club-controls">
+                <button disabled={active === null} onClick={decrement}>-</button>
+                <button disabled={active === null} onClick={increment}>+</button>
             </div>
         </>
     )

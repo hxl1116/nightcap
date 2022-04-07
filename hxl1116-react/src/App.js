@@ -16,8 +16,8 @@ function App() {
                 <h3>Each time someone enters/leaves the club, select the correct club and click the appropriate
                     button</h3>
             </header>
-            <div className="container">
-                <ul>
+            <div id="clubs-display">
+                <ul id="clubs-list">
                     {CLUBS.map(club => <Club key={club.name} {...club} volume={volumes[club.name]}/>)}
                 </ul>
                 <ClubControl clubs={CLUBS} active={active} disp={dispatch} setActive={setActive}/>
