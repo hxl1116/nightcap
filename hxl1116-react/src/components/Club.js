@@ -19,7 +19,7 @@ const Club = ({id, name, text, volume, capacity, threshold}) => {
             setMessage(CAP_MSG.restricted)
             setStatus('restricted')
         }
-    }, [volume])
+    }, [volume, capacity, threshold])
 
     return (
         <div className="club-display">
