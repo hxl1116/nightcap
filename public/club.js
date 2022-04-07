@@ -98,7 +98,7 @@ const init = () => {
 
 const handleStatus = ({action}) => {
     let club = CLUBS.filter(club => club.name === activeClub).pop()
-    let disp = $(`#${club.name}-display>div`)
+    let disp = $(`#${club.name}-display > div`)
     let vol = volumes[activeClub]
     let msg = null
 
