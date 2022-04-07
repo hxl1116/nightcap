@@ -36,7 +36,9 @@ pages:
     - sed -i "s|</body>|<div style="float:left"><small>Built on GitLab branch <code>$CI_COMMIT_REF_NAME</code> commit <code>$CI_COMMIT_SHORT_SHA</code> $(date)</small></div></body>|g" public/index.html
     - npm run build   # Do a production build to build/ folder
     - rm -rf public   # React public/ shouldn't conflict with GitLab public/
-    - mv $APP_NAME/build public # Move to the directory GitLab pages expects
+    - pwd
+    - ls
+    - mv build public # Move to the directory GitLab pages expects
     - rm -rf ../$OUTPUT_DIR # Remove the old files
     - mv build ../$OUTPUT_DIR
     - ls -lFa ../$OUTPUT_DIR #After the npm deploy
