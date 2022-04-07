@@ -8,15 +8,15 @@ const Club = ({id, name, text, volume, capacity, threshold}) => {
     // Adjust message based on the club's volume
     useEffect(() => {
         if (volume >= threshold && volume < capacity) {
-            setMessage(CAP_MSG.caution.message)
+            setMessage(CAP_MSG.caution)
             setStatus('caution')
         }
         else if (volume < capacity) {
-            setMessage(CAP_MSG.normal.message)
+            setMessage(CAP_MSG.normal)
             setStatus('normal')
         }
         else {
-            setMessage(CAP_MSG.restricted.message)
+            setMessage(CAP_MSG.restricted)
             setStatus('restricted')
         }
     }, [volume])

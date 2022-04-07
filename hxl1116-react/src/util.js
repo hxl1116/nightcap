@@ -31,18 +31,9 @@ export const CLUBS = [
 
 // Club capacity levels
 export const CAP_MSG = {
-    normal: {
-        color: '#94d2bd',
-        message: 'Welcome!'
-    },
-    caution: {
-        color: '#ca6702',
-        message: 'Warn the bouncers...'
-    },
-    restricted: {
-        color: '#ae2012',
-        message: 'No one allowed in!'
-    }
+    normal: 'Welcome!',
+    caution: 'Warn the bouncers...',
+    restricted: 'No one allowed in!'
 }
 
 
