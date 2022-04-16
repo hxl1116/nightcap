@@ -9,19 +9,12 @@ import {CLUBS} from "../util";
 
 const ClubsGrid = () => {
     const [clubs, setClubs] = useState(CLUBS)
-    const [show, setShow] = useState(false)
+    // const [show, setShow] = useState(false)
 
-    const toggle = () => setShow(!show)
+    // const toggle = () => setShow(!show)
 
     const push = (data) => {
-        setClubs(clubs => ([...clubs, {
-            id: _.camelCase(data.name),
-            name: '',
-            genre: '',
-            location: '',
-            capacity: '',
-            threshold: ''
-        }]))
+        setClubs(clubs => ([...clubs, {...data, id: _.camelCase(data.name)}]))
     }
 
     const remove = (id) => {
