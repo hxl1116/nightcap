@@ -1,21 +1,25 @@
 import React from "react";
 import {CardGroup, Col, Container, Row} from "reactstrap";
 
-import Club from "./Club";
+import ClubDisplay from "./ClubDisplay";
 
 import {CLUBS} from "../util";
+import ClubForm from "./ClubForm";
 
 const ClubsGrid = ({volumes}) => {
     return (
-        <Container>
+        <Container fluid="sm">
             <Row>
-                {CLUBS.map(club => (
-                    <Col>
+                {CLUBS.map((club, idx) => (
+                    <Col key={`club-${idx}`}>
                         <CardGroup>
-                            <Club key={club.name} {...club} volume={volumes[club.name]}/>
+                            <ClubDisplay key={club.name} {...club}/>
                         </CardGroup>
                     </Col>
                 ))}
+            </Row>
+            <Row>
+                <ClubForm/>
             </Row>
         </Container>
     )
