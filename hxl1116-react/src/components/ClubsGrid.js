@@ -1,25 +1,48 @@
-import React from "react";
-import {CardGroup, Col, Container, Row} from "reactstrap";
+import React, {useState} from "react";
+import _ from 'lodash'
+import {CardGroup, Col, Collapse, Container, Row} from "reactstrap";
 
 import ClubDisplay from "./ClubDisplay";
-
-import {CLUBS} from "../util";
 import ClubForm from "./ClubForm";
 
-const ClubsGrid = ({volumes}) => {
+import {CLUBS} from "../util";
+
+const ClubsGrid = () => {
+    const [clubs, setClubs] = useState(CLUBS)
+    const [show, setShow] = useState(false)
+
+    const toggle = () => setShow(!show)
+
+    const push = (data) => {
+        setClubs(clubs => ([...clubs, {
+            id: _.camelCase(data.name),
+            name: '',
+            genre: '',
+            location: '',
+            capacity: '',
+            threshold: ''
+        }]))
+    }
+
+    const remove = (id) => {
+        setClubs(clubs.filter(club => club.id !== id))
+    }
+
     return (
         <Container fluid="sm">
             <Row>
-                {CLUBS.map((club, idx) => (
+                {clubs.map((club, idx) => (
                     <Col key={`club-${idx}`}>
                         <CardGroup>
-                            <ClubDisplay key={club.name} {...club}/>
+                            <ClubDisplay key={club.id} {...club} remove={() => remove(club.id)}/>
                         </CardGroup>
                     </Col>
                 ))}
             </Row>
             <Row>
-                <ClubForm/>
+                <Collapse isOpen={true}>
+                    <ClubForm submit={push}/>
+                </Collapse>
             </Row>
         </Container>
     )

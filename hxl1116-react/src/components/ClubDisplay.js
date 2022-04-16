@@ -1,27 +1,11 @@
 import React, {useEffect, useReducer, useState} from "react";
-import {CAP_MSG} from "../util";
 import {Button, ButtonGroup, Card, CardBody, CardFooter, CardHeader, CardText, CardTitle, Progress} from "reactstrap";
 
-const reducer = (state, action) => {
-    switch (action.type) {
-        case 'increment':
-            // Increment club volume
-            if (state.vol < state.max) return {...state, vol: state.vol++}
-            // Bail out of dispatch
-            else return state
-        case 'decrement':
-            // Decrement club volume
-            if (state.vol > 0) return {...state, vol: state.vol--}
-            // Bail out of dispatch
-            else return state
-        default:
-            throw new Error(`Unknown type: ${action.type}`)
-    }
-}
+import {CAP_MSG, clubReducer} from "../util";
 
-const ClubDisplay = ({id, name, text, loc, theme, capacity, threshold}) => {
+const ClubDisplay = ({name, loc, theme, capacity, threshold, remove}) => {
     // noinspection JSCheckFunctionSignatures
-    const [club, dispatch] = useReducer(reducer, {max: capacity, vol: 0})
+    const [club, dispatch] = useReducer(clubReducer, {max: capacity, vol: 0})
     const [status, setStatus] = useState('normal')
     const [message, setMessage] = useState('')
 
@@ -39,15 +23,16 @@ const ClubDisplay = ({id, name, text, loc, theme, capacity, threshold}) => {
         }
     }, [club.vol, capacity, threshold])
 
-    // TODO: Add sizing for desktop, mobile
+    // TODO: Add sizing for desktop, mobile; add edit, delete buttons
     // noinspection JSCheckFunctionSignatures
     return (
         <Card className="text-center">
             <CardHeader>
                 <Progress animated value={club.vol} max={capacity} color={status}/>
+                <Button close onClick={remove}/>
             </CardHeader>
             <CardBody>
-                <CardTitle tag="h5">{text}</CardTitle>
+                <CardTitle tag="h5">{name}</CardTitle>
                 <CardText>location: {loc || 'City'}</CardText>
                 <CardText>theme: {theme || 'Music'}</CardText>
                 <CardText>{club.vol}</CardText>

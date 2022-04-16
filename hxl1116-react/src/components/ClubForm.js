@@ -1,7 +1,8 @@
-import {Form, FormGroup, Input, Label} from "reactstrap";
 import {useState} from "react";
+import {Button, Form, FormGroup, Input, Label} from "reactstrap";
 
-const ClubForm = () => {
+
+const ClubForm = ({submit}) => {
     const [form, setForm] = useState({
         name: '',
         location: '',
@@ -24,8 +25,22 @@ const ClubForm = () => {
         setForm(form => ({...form, [field]: value}))
     }
 
+    const handleSubmit = (event) => {
+        event.preventDefault()
+
+        const data = new FormData(event.target)
+
+        submit({
+            name: data.get('clubName'),
+            genre: data.get('clubGenre'),
+            location: data.get('clubLoc'),
+            capacity: data.get('clubCap'),
+            threshold: data.get('clubThresh')
+        })
+    }
+
     return (
-        <Form>
+        <Form onSubmit={handleSubmit}>
             <FormGroup>
                 <Label for="clubName" hidden>Name</Label>
                 <Input id="clubName" name="name" type="text" placeholder="Name" onChange={handleChange}/>
@@ -47,6 +62,7 @@ const ClubForm = () => {
                 <Input id="clubThresh" name="threshold" type="number" defaultValue={form.threshold}
                        onChange={handleChange}/>
             </FormGroup>
+            <Button type="submit">Submit</Button>
         </Form>
     )
 }
