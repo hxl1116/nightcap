@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import _ from 'lodash'
-import {CardGroup, Col, Collapse, Container, Row} from "reactstrap";
+import {CardGroup, Col, Container, Row} from "reactstrap";
 
 import ClubDisplay from "./ClubDisplay";
 import ClubForm from "./ClubForm";
@@ -9,11 +9,12 @@ import {CLUBS} from "../util";
 
 const ClubsGrid = () => {
     const [clubs, setClubs] = useState(CLUBS)
-    // const [show, setShow] = useState(false)
+    const [show, setShow] = useState(false)
 
-    // const toggle = () => setShow(!show)
+    const toggle = () => setShow(!show)
 
     const push = (data) => {
+        console.info(data)
         setClubs(clubs => ([...clubs, {...data, id: _.camelCase(data.name)}]))
     }
 
@@ -22,7 +23,7 @@ const ClubsGrid = () => {
     }
 
     return (
-        <Container fluid="sm">
+        <Container>
             <Row>
                 {clubs.map((club, idx) => (
                     <Col key={`club-${idx}`}>
@@ -33,9 +34,9 @@ const ClubsGrid = () => {
                 ))}
             </Row>
             <Row>
-                <Collapse isOpen={true}>
+                <Col>
                     <ClubForm submit={push}/>
-                </Collapse>
+                </Col>
             </Row>
         </Container>
     )

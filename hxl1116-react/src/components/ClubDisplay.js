@@ -26,10 +26,9 @@ const ClubDisplay = ({name, loc, theme, capacity, threshold, remove}) => {
     // TODO: Add sizing for desktop, mobile; add edit, delete buttons
     // noinspection JSCheckFunctionSignatures
     return (
-        <Card className="text-center">
+        <Card className="text-center club-display">
             <CardHeader>
                 <Progress animated value={club.vol} max={capacity} color={status}/>
-                <Button close onClick={remove}/>
             </CardHeader>
             <CardBody>
                 <CardTitle tag="h5">{name}</CardTitle>
@@ -37,6 +36,10 @@ const ClubDisplay = ({name, loc, theme, capacity, threshold, remove}) => {
                 <CardText>theme: {theme || 'Music'}</CardText>
                 <CardText>{club.vol}</CardText>
                 <CardText>{message}</CardText>
+                <ButtonGroup vertical>
+                    <Button outline className="material-icons">edit</Button>
+                    <Button outline className="material-icons" onClick={remove}>close</Button>
+                </ButtonGroup>
             </CardBody>
             <CardFooter>
                 <ButtonGroup>

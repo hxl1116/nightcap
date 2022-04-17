@@ -1,21 +1,16 @@
 import React from "react";
-import {Col, Container, Row} from "reactstrap";
 
+import Nav from "./components/Nav";
 import Header from "./components/Header";
 import ClubsGrid from "./components/ClubsGrid";
 
 function App() {
     return (
-        <Container>
-            <Row>
-                <Col>
-                    <Header/>
-                </Col>
-            </Row>
-            <Row>
-                <ClubsGrid/>
-            </Row>
-        </Container>
+        <>
+            <Nav/>
+            <Header/>
+            <ClubsGrid/>
+        </>
     )
 }
 
