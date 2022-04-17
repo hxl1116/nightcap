@@ -14,6 +14,9 @@ body {
   margin-top: 25px;
 }
 
+.club-display {
+  margin-bottom: 20px;
+}
 .club-display .card-body {
   position: relative;
 }

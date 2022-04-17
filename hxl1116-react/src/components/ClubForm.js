@@ -51,7 +51,7 @@ const ClubForm = ({submit}) => {
                 ...data,
                 threshold: Math.round(data.capacity * 0.8)
             })
-    }, [data.capacity])
+    }, [data.capacity, data, linked])
 
     return (
         <Card id="club-form">

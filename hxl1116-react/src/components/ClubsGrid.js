@@ -1,6 +1,6 @@
 import React, {useState} from "react";
+import {Col, Container, Row} from "reactstrap";
 import _ from 'lodash'
-import {CardGroup, Col, Container, Row} from "reactstrap";
 
 import ClubDisplay from "./ClubDisplay";
 import ClubForm from "./ClubForm";
@@ -11,7 +11,6 @@ const ClubsGrid = () => {
     const [clubs, setClubs] = useState(CLUBS)
 
     const push = (data) => {
-        console.info(data)
         setClubs(clubs => ([...clubs, {...data, id: _.camelCase(data.name)}]))
     }
 
@@ -19,14 +18,21 @@ const ClubsGrid = () => {
         setClubs(clubs.filter(club => club.id !== id))
     }
 
+    // FIXME: List of clubs not updated correctly
+    const edit = (id, data) => {
+        let idx = clubs.findIndex(club => club.id === id)
+
+        remove(id)
+
+        setClubs([...clubs.slice(0, idx), {...data, id}, ...clubs.slice(idx)])
+    }
+
     return (
         <Container>
             <Row>
                 {clubs.map((club, idx) => (
-                    <Col key={`club-${idx}`}>
-                        <CardGroup>
-                            <ClubDisplay key={club.id} {...club} remove={() => remove(club.id)}/>
-                        </CardGroup>
+                    <Col key={`club-${idx}`} sm={1} lg={3}>
+                        <ClubDisplay key={club.id} {...club} remove={() => remove(club.id)} handleEdit={edit}/>
                     </Col>
                 ))}
             </Row>

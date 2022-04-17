@@ -2,12 +2,20 @@ import React, {useEffect, useReducer, useState} from "react";
 import {Button, ButtonGroup, Card, CardBody, CardFooter, CardHeader, CardText, CardTitle, Progress} from "reactstrap";
 
 import {CAP_MSG, clubReducer} from "../util";
+import ClubEditForm from "./ClubEditForm";
 
-const ClubDisplay = ({name, location, genre, capacity, threshold, remove}) => {
+const ClubDisplay = ({id, name, location, genre, capacity, threshold, remove, handleEdit}) => {
     // noinspection JSCheckFunctionSignatures
     const [club, dispatch] = useReducer(clubReducer, {max: capacity, vol: 0})
     const [status, setStatus] = useState('normal')
     const [message, setMessage] = useState('')
+    const [editMode, setEditMode] = useState(false)
+
+    const toggle = () => setEditMode(!editMode)
+
+    const edit = (id, data) => {
+        handleEdit(id, {...data, capacity, threshold})
+    }
 
     // Adjust message based on the club's volume
     useEffect(() => {
@@ -31,22 +39,28 @@ const ClubDisplay = ({name, location, genre, capacity, threshold, remove}) => {
                 <Progress animated value={club.vol} max={capacity} color={status}/>
             </CardHeader>
             <CardBody>
-                <CardTitle tag="h5">{name}</CardTitle>
-                <CardText>location: {location || 'City'}</CardText>
-                <CardText>theme: {genre || 'Music'}</CardText>
-                <CardText>{club.vol}</CardText>
-                <CardText>{message}</CardText>
-                <ButtonGroup vertical>
-                    <Button outline className="material-icons">edit</Button>
-                    <Button outline className="material-icons" onClick={remove}>close</Button>
-                </ButtonGroup>
+                {editMode ? (
+                    <ClubEditForm {...{id, name, location, genre, toggle, edit}}/>
+                ) : (
+                    <>
+                        <CardTitle tag="h5">{name}</CardTitle>
+                        <CardText>location: {location || 'City'}</CardText>
+                        <CardText>theme: {genre || 'Music'}</CardText>
+                        <CardText>{club.vol}</CardText>
+                        <CardText>{message}</CardText>
+                        <ButtonGroup vertical>
+                            <Button outline className="material-icons" onClick={toggle}>edit</Button>
+                            <Button outline className="material-icons" onClick={remove}>close</Button>
+                        </ButtonGroup>
+                    </>
+                )}
             </CardBody>
             <CardFooter>
                 <ButtonGroup>
-                    <Button outline color="secondary" disabled={club.vol === 0}
-                            onClick={() => dispatch({type: 'decrement'})}>-</Button>
-                    <Button outline color="secondary" disabled={club.vol === capacity}
-                            onClick={() => dispatch({type: 'increment'})}>+</Button>
+                    <Button outline className="material-icons" disabled={club.vol === 0}
+                            onClick={() => dispatch({type: 'decrement'})}>remove</Button>
+                    <Button outline className="material-icons" disabled={club.vol === capacity}
+                            onClick={() => dispatch({type: 'increment'})}>add</Button>
                 </ButtonGroup>
             </CardFooter>
         </Card>
