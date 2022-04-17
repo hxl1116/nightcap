@@ -2,32 +2,32 @@ export const CLUBS = [
     {
         id: 'clubArcane',
         name: 'Club Arcane',
-        genre: '',
-        location: '',
+        genre: 'Pop',
+        location: 'Toronto',
         capacity: 100,
         threshold: 70
     },
     {
         id: 'clubUnderground',
         name: 'Club Underground',
-        genre: '',
-        location: '',
+        genre: 'Hip Hop',
+        location: 'Buffalo',
         capacity: 50,
         threshold: 30
     },
     {
         id: 'clubSoda',
         name: 'Club Soda',
-        genre: '',
-        location: '',
+        genre: 'Jazz',
+        location: 'Worcester',
         capacity: 20,
         threshold: 12
     },
     {
         id: 'studio52',
         name: 'Studio 52',
-        genre: '',
-        location: '',
+        genre: 'Rock',
+        location: 'Washington D.C.',
         capacity: 52,
         threshold: 32
     }

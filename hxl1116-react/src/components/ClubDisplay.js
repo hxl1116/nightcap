@@ -3,7 +3,7 @@ import {Button, ButtonGroup, Card, CardBody, CardFooter, CardHeader, CardText, C
 
 import {CAP_MSG, clubReducer} from "../util";
 
-const ClubDisplay = ({name, loc, theme, capacity, threshold, remove}) => {
+const ClubDisplay = ({name, location, genre, capacity, threshold, remove}) => {
     // noinspection JSCheckFunctionSignatures
     const [club, dispatch] = useReducer(clubReducer, {max: capacity, vol: 0})
     const [status, setStatus] = useState('normal')
@@ -32,8 +32,8 @@ const ClubDisplay = ({name, loc, theme, capacity, threshold, remove}) => {
             </CardHeader>
             <CardBody>
                 <CardTitle tag="h5">{name}</CardTitle>
-                <CardText>location: {loc || 'City'}</CardText>
-                <CardText>theme: {theme || 'Music'}</CardText>
+                <CardText>location: {location || 'City'}</CardText>
+                <CardText>theme: {genre || 'Music'}</CardText>
                 <CardText>{club.vol}</CardText>
                 <CardText>{message}</CardText>
                 <ButtonGroup vertical>
