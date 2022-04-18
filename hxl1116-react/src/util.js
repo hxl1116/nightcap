@@ -1,29 +1,33 @@
 export const CLUBS = [
     {
-        id: 1,
-        name: 'clubArcane',
-        text: 'Club Arcane',
+        id: 'clubArcane',
+        name: 'Club Arcane',
+        genre: 'Pop',
+        location: 'Toronto',
         capacity: 100,
         threshold: 70
     },
     {
-        id: 2,
-        name: 'clubUnderground',
-        text: 'Club Underground',
+        id: 'clubUnderground',
+        name: 'Club Underground',
+        genre: 'Hip Hop',
+        location: 'Buffalo',
         capacity: 50,
         threshold: 30
     },
     {
-        id: 3,
-        name: 'clubSoda',
-        text: 'Club Soda',
+        id: 'clubSoda',
+        name: 'Club Soda',
+        genre: 'Jazz',
+        location: 'Worcester',
         capacity: 20,
         threshold: 12
     },
     {
-        id: 4,
-        name: 'studio52',
-        text: 'Studio 52',
+        id: 'studio52',
+        name: 'Studio 52',
+        genre: 'Rock',
+        location: 'Washington D.C.',
         capacity: 52,
         threshold: 32
     }
@@ -31,48 +35,24 @@ export const CLUBS = [
 
 // Club capacity levels
 export const CAP_MSG = {
-    normal: 'Welcome!',
-    caution: 'Warn the bouncers...',
-    restricted: 'No one allowed in!'
-}
-
-
-export const init = (clubs) => {
-    let volumes = {}
-
-    for (const club of clubs)
-        volumes[club.name] = 0
-
-    return volumes
+    normal: {color: 'success', message: 'Welcome!'},
+    caution: {color: 'warning', message: 'Warn the bouncers...'},
+    danger: {color: 'danger', message: 'No one allowed in!'}
 }
 
 export const clubReducer = (state, action) => {
-    let club = CLUBS[action.payload]
-    let vol = state[club.name]
-
-    // Check for increment/decrement
     switch (action.type) {
         case 'increment':
-            // Ensure club volume is below or at club capacity
-            if (vol < club.capacity)
-                return {
-                    ...state,
-                    [club.name]: vol + 1
-                }
-            // Bail out
+            // Increment club volume
+            if (state.vol < state.max) return {...state, vol: state.vol++}
+            // Bail out of dispatch
             else return state
         case 'decrement':
-            // Ensure club volume is zero or more
-            if (vol > 0)
-                return {
-                    ...state,
-                    [club.name]: vol - 1
-                }
-            // Bail out
+            // Decrement club volume
+            if (state.vol > 0) return {...state, vol: state.vol--}
+            // Bail out of dispatch
             else return state
-        case 'reset':
-            return init(action.payload)
         default:
-            throw new Error(`Unknown action ${action}`)
+            throw new Error(`Unknown type: ${action.type}`)
     }
 }
