@@ -4,10 +4,6 @@ import {Button, Col, Form, FormGroup, Input, Label} from "reactstrap";
 const ClubEditForm = ({id, name, location, genre, toggle, edit}) => {
     const [data, setData] = useState({...{name, location, genre}})
 
-    const validate = () => {
-
-    }
-
     const handleChange = (event) => {
         let field = event.target.name
         let value = event.target.value
