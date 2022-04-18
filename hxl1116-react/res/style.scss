@@ -33,5 +33,11 @@ body {
 
       visibility: hidden;
     }
+
+    @media screen and (max-width: 600px) {
+      .btn-group-vertical {
+        visibility: visible;
+      }
+    }
   }
 }
