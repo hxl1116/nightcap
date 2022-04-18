@@ -9,7 +9,6 @@ import {CLUBS} from "../util";
 
 const ClubsGrid = () => {
     const [clubs, setClubs] = useState(CLUBS)
-
     const push = (data) => {
         setClubs(clubs => ([...clubs, {...data, id: _.camelCase(data.name)}]))
     }

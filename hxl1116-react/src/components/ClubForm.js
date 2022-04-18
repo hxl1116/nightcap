@@ -1,5 +1,6 @@
 import {useEffect, useState} from "react";
-import {Button, Card, CardBody, CardHeader, Col, Form, FormGroup, Input, Label, Row} from "reactstrap";
+import validator from "validator/es";
+import {Button, Card, CardBody, CardHeader, Col, Form, FormFeedback, FormGroup, Input, Label, Row} from "reactstrap";
 
 
 const ClubForm = ({submit}) => {
@@ -10,10 +11,17 @@ const ClubForm = ({submit}) => {
         capacity: 100,
         threshold: 80
     })
+    const [errors, setErrors] = useState({})
 
     const [linked, setLinked] = useState(true)
 
     const toggleLink = () => setLinked(!linked)
+
+    const validate = (field, value) => {
+        if (validator.isEmpty(value))
+            setErrors(errors => ({...errors, [field]: 'Required'}))
+        else setErrors(errors => ({...errors, [field]: ''}))
+    }
 
     const handleChange = (event) => {
         // Get form field
@@ -27,14 +35,14 @@ const ClubForm = ({submit}) => {
 
         // Update form field with new value
         setData(form => ({...form, [field]: value}))
+
+        validate(field, value)
     }
 
     const handleSubmit = (event) => {
         event.preventDefault()
 
         const data = new FormData(event.target)
-
-        console.info(data)
 
         submit({
             name: data.get('name'),
@@ -62,21 +70,24 @@ const ClubForm = ({submit}) => {
                         <FormGroup>
                             <Label for="clubName">Name</Label>
                             <Input id="clubName" name="name" type="text" placeholder="Archibald's"
-                                   onChange={handleChange}/>
+                                   invalid={!!errors['name']} onChange={handleChange}/>
+                            <FormFeedback>A club name is required</FormFeedback>
                         </FormGroup>
                     </Row>
                     <Row>
                         <FormGroup>
                             <Label for="clubLoc">City</Label>
                             <Input id="clubLoc" name="location" type="text" placeholder="Elysium"
-                                   onChange={handleChange}/>
+                                   invalid={!!errors['location']} onChange={handleChange}/>
+                            <FormFeedback>A club city is required</FormFeedback>
                         </FormGroup>
                     </Row>
                     <Row>
                         <FormGroup>
                             <Label for="clubGenre">Music Genre</Label>
                             <Input id="clubGenre" name="genre" type="text" placeholder="Post-Ambient Medieval Jazz"
-                                   onChange={handleChange}/>
+                                   invalid={!!errors['genre']} onChange={handleChange}/>
+                            <FormFeedback>A club music genre is required</FormFeedback>
                         </FormGroup>
                     </Row>
                     <Row>
@@ -84,7 +95,8 @@ const ClubForm = ({submit}) => {
                             <FormGroup>
                                 <Label for="clubCap">Capacity</Label>
                                 <Input id="clubCap" name="capacity" type="number" value={data.capacity.toString()}
-                                       onChange={handleChange}/>
+                                       invalid={!!errors['capacity']} onChange={handleChange}/>
+                                <FormFeedback>A club capacity is required</FormFeedback>
                             </FormGroup>
                         </Col>
                         <Col style={{maxWidth: 42 + 24, position: 'relative'}}>
@@ -95,7 +107,8 @@ const ClubForm = ({submit}) => {
                             <FormGroup>
                                 <Label for="clubThresh">Threshold</Label>
                                 <Input id="clubThresh" name="threshold" type="number" value={data.threshold.toString()}
-                                       disabled={linked} onChange={handleChange}/>
+                                       disabled={linked} invalid={!!errors['threshold']} onChange={handleChange}/>
+                                <FormFeedback>A club capacity threshold is required</FormFeedback>
                             </FormGroup>
                         </Col>
                     </Row>
