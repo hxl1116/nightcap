@@ -18,13 +18,12 @@ const ClubsGrid = () => {
         setClubs(clubs.filter(club => club.id !== id))
     }
 
-    // FIXME: List of clubs not updated correctly
     const edit = (id, data) => {
         let idx = clubs.findIndex(club => club.id === id)
 
         remove(id)
 
-        setClubs([...clubs.slice(0, idx), {...data, id}, ...clubs.slice(idx)])
+        setClubs([...clubs.slice(0, idx), {...data, id}, ...clubs.slice(idx + 1)])
     }
 
     return (
