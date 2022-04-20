@@ -5,7 +5,7 @@ import _ from 'lodash'
 import ClubDisplay from "./ClubDisplay";
 import ClubForm from "./ClubForm";
 
-import {CLUBS} from "../util";
+import {CLUBS} from "../utils";
 
 const ClubsGrid = () => {
     const [clubs, setClubs] = useState(CLUBS)

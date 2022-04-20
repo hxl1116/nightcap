@@ -1,7 +1,7 @@
 import React, {useEffect, useReducer, useState} from "react";
 import {Button, ButtonGroup, Card, CardBody, CardFooter, CardHeader, CardText, CardTitle, Progress} from "reactstrap";
 
-import {CAP_MSG, clubReducer} from "../util";
+import {CAP_MSG, clubReducer} from "../utils";
 import ClubEditForm from "./ClubEditForm";
 
 const ClubDisplay = ({id, name, location, genre, capacity, threshold, remove, handleEdit}) => {

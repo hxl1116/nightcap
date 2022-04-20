@@ -2,7 +2,7 @@ from flask import Flask
 from flask_restful import Api
 
 from api.example import ExampleApi
-from util import exec_file
+from utils import exec_file
 
 app = Flask(__name__)
 
