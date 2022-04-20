@@ -1,6 +1,7 @@
 {
   "name": "nightclub-capacity-app",
   "version": "0.1.0",
+  "proxy": "http://localhost:5000",
   "homepage": ".",
   "private": true,
   "dependencies": {
