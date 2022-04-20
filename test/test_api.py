@@ -1,11 +1,19 @@
 from unittest import TestCase
 
+from server.utils import fetch_many, commit
 from test_utils import get_rest_call
 
 
-class TestExample(TestCase):
-    def test_api(self):
-        result = get_rest_call(self, 'http://localhost:5000/example_api')
-        self.assertEqual(3, len(result), "Should have returned a length of '3'")
-        print("API test successfully returned a list of '3' ")
-        print(result)
+class TestClub(TestCase):
+    endpoint = 'http://localhost:5000/clubs'
+
+    def setUp(self) -> None:
+        self.clubs = fetch_many("SELECT * FROM club")
+
+    def test_get(self):
+        res = get_rest_call(self, self.endpoint)
+
+        self.assertEqual(len(self.clubs), len(res), f'Results length should be {len(self.clubs)}')
+
+    def tearDown(self) -> None:
+        commit("CALL reload_club_data()")

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import {Col, Container, Row} from "reactstrap";
 import _ from 'lodash'
 
@@ -24,12 +24,6 @@ const ClubsGrid = ({filter}) => {
 
         setClubs([...clubs.slice(0, idx), {...data, id}, ...clubs.slice(idx + 1)])
     }
-
-    useEffect(() => {
-        console.info(clubs.filter(club => {
-            console.info(club, filter, club.location.includes(filter))
-        }))
-    })
 
     return (
         <Container>

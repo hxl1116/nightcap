@@ -2,6 +2,8 @@ import psycopg2
 import yaml
 import os
 
+from psycopg2.extras import RealDictCursor
+
 res = '../res/db/'
 
 
@@ -18,38 +20,51 @@ def connect():
                             port=config['port'])
 
 
-def exec_file(path):
-    full_path = os.path.join(os.path.dirname(__file__), res, f'{path}')
+def cursor():
     conn = connect()
-    cur = conn.cursor()
-    with open(full_path, 'r') as file:
+    cur = conn.cursor(cursor_factory=RealDictCursor)
+
+    return conn, cur
+
+
+def exec_file(path):
+    conn, cur = cursor()
+
+    with open(os.path.join(os.path.dirname(__file__), res, f'{path}'), 'r') as file:
         cur.execute(file.read())
+
     conn.commit()
     conn.close()
 
 
 def fetch_one(sql, args=None):
-    conn = connect()
-    cur = conn.cursor()
+    conn, cur = cursor()
+
     cur.execute(sql, args)
-    one = cur.fetchone()
+
+    result = cur.fetchone()
     conn.close()
-    return one
+
+    return result
 
 
 def fetch_many(sql, args=None):
-    conn = connect()
-    cur = conn.cursor()
+    conn, cur = cursor()
+
     cur.execute(sql, args)
-    list_of_tuples = cur.fetchall()
+
+    results = cur.fetchall()
     conn.close()
-    return list_of_tuples
+
+    return results
 
 
 def commit(sql, args=None):
-    conn = connect()
-    cur = conn.cursor()
+    conn, cur = cursor()
+
     result = cur.execute(sql, args)
+
     conn.commit()
     conn.close()
+
     return result

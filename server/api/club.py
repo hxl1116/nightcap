@@ -1,10 +1,11 @@
 from flask_restful import Resource
 
 
-class ExampleApi(Resource):
+class Club(Resource):
     @staticmethod
     def get():
         from utils import fetch_many
 
-        result = fetch_many("SELECT * FROM people")
-        return result
+        res = fetch_many("SELECT * FROM club")
+
+        return res
