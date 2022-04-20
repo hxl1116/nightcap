@@ -1,11 +1,9 @@
 from flask_restful import Resource
 
+from db.club import get_all_clubs
+
 
 class Club(Resource):
     @staticmethod
     def get():
-        from utils import fetch_many
-
-        res = fetch_many("SELECT * FROM club")
-
-        return res
+        return get_all_clubs()

@@ -8,4 +8,4 @@ create table club
     city      varchar(50),
     capacity  integer,
     threshold integer
-)
+);

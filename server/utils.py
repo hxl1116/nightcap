@@ -27,6 +27,15 @@ def cursor():
     return conn, cur
 
 
+def seed():
+    conn, cur = cursor()
+
+    cur.execute("CALL reload_club_data()")
+
+    conn.commit()
+    conn.close()
+
+
 def exec_file(path):
     conn, cur = cursor()
 
