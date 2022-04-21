@@ -16,8 +16,8 @@ def get_club(name):
 def insert_club(**kwargs):
     """ Insert a new club """
     commit("""
-        INSERT INTO club (name, genre, city, capacity, threshold) VALUES (%s)
-    """, (tuple(kwargs.values())))
+        INSERT INTO club (name, genre, city, capacity, threshold) VALUES (%s, %s, %s, %s, %s)
+    """, tuple(kwargs.values()))
 
 
 def update_club(id, **kwargs):
