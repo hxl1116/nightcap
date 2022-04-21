@@ -1,14 +1,15 @@
 from flask import Flask
 from flask_restful import Api
 
-from api.club import Club
+from api.club import Club, ClubList
 from utils import exec_file, seed
 
 app = Flask(__name__)
 
 api = Api(app)
 
-api.add_resource(Club, '/clubs')
+api.add_resource(Club, '/clubs/<string:club_id>')
+api.add_resource(ClubList, '/clubs')
 
 
 def init():

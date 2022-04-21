@@ -22,17 +22,22 @@ def insert_club(**kwargs):
 
 def update_club(id, **kwargs):
     """ Update a club's info """
-    query = SQL("""
-        UPDATE club SET ({}) = %s WHERE id = %s
-    """).format(
-        SQL(', ').join(map(Identifier, list(kwargs.keys())))
-    )
+    if len(kwargs) == 1:
+        query = SQL("""
+            UPDATE club SET {} = %s WHERE id = %s
+        """).format(SQL(', ').join(map(Identifier, list(kwargs.keys()))))
 
-    commit(query, (tuple(kwargs.values()), id))
+        commit(query, (tuple(kwargs.values()), id))
+    else:
+        query = SQL("""
+            UPDATE club SET ({}) = %s WHERE id = %s
+        """).format(SQL(', ').join(map(Identifier, list(kwargs.keys()))))
+
+        commit(query, (tuple(kwargs.values()), id))
 
 
 def delete_club(id):
     """ Delete a club """
     commit("""
-        DELETE FROM club WHERE id = %s
-    """, (id,))
+    DELETE FROM club WHERE id = %s
+""", (id,))

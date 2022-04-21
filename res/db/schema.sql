@@ -2,10 +2,11 @@ drop table if exists club;
 
 create table club
 (
-    id        serial primary key not null,
-    name      varchar(50),
-    genre     varchar(20),
-    city      varchar(50),
-    capacity  integer,
-    threshold integer
+    id        int primary key generated always as identity,
+    name      varchar(50)     not null,
+    genre     varchar(20)     not null,
+    city      varchar(50)     not null,
+    volume    int default 0   not null,
+    capacity  int default 100 not null,
+    threshold int default 80  not null
 );
