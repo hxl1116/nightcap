@@ -109,7 +109,7 @@ const ClubForm = ({submit}) => {
                             </FormGroup>
                         </Col>
                     </Row>
-                    <Button type="submit">Submit</Button>
+                    <Button style={{width: '100%'}} type="submit">Submit</Button>
                 </Form>
             </CardBody>
         </Card>

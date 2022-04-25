@@ -29,6 +29,8 @@ class Club(Resource):
         # TODO: Validate club id
         delete_club(club_id)
 
+        return '', 200
+
 
 class ClubList(Resource):
     def __init__(self):
@@ -41,7 +43,7 @@ class ClubList(Resource):
 
     @staticmethod
     def get():
-        return get_all_clubs()
+        return get_all_clubs(), 200
 
     def post(self):
         args = self.post_parser.parse_args()

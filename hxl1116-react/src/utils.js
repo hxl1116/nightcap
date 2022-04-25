@@ -73,7 +73,7 @@ export const getClubs = (update) => {
         })
         .catch((err) => {
             console.error(err)
-            update([])
+            return err
         })
 }
 
@@ -85,6 +85,17 @@ export const postClub = async (data) => {
         },
         body: JSON.stringify(data)
     })
+        .then((res) => {
+            if (res.status === 201) return res.json()
+            else {
+                console.log(`HTTP error: ${res.status}: ${res.statusText}`)
+                return {'status': res.status}
+            }
+        })
+        .catch((err) => {
+            console.error(err)
+            return err
+        })
 }
 
 export const putClub = async (id, data) => {
@@ -95,8 +106,30 @@ export const putClub = async (id, data) => {
         },
         body: JSON.stringify({id, ...data})
     })
+        .then((res) => {
+            if (res.status === 201) return res.json()
+            else {
+                console.log(`HTTP error: ${res.status}: ${res.statusText}`)
+                return {'status': res.status}
+            }
+        })
+        .catch((err) => {
+            console.error(err)
+            return err
+        })
 }
 
 export const deleteClub = async (id) => {
     return await fetch(`${ENDPOINT}/${id}`, {method: 'DELETE'})
+        .then((res) => {
+            if (res.status === 200) return res.json()
+            else {
+                console.log(`HTTP error: ${res.status}: ${res.statusText}`)
+                return {'status': res.status}
+            }
+        })
+        .catch((err) => {
+            console.error(err)
+            return err
+        })
 }
