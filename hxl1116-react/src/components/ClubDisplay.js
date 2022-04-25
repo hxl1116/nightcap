@@ -1,10 +1,10 @@
 import React, {useEffect, useReducer, useState} from "react";
 import {Button, ButtonGroup, Card, CardBody, CardFooter, CardHeader, CardText, CardTitle, Progress} from "reactstrap";
 
-import {CAP_MSG, clubReducer} from "../util";
+import {CAP_MSG, clubReducer} from "../utils";
 import ClubEditForm from "./ClubEditForm";
 
-const ClubDisplay = ({id, name, location, genre, capacity, threshold, remove, handleEdit}) => {
+const ClubDisplay = ({id, name, city, genre, capacity, threshold, remove, handleEdit}) => {
     // noinspection JSCheckFunctionSignatures
     const [club, dispatch] = useReducer(clubReducer, {max: capacity, vol: 0})
     const [status, setStatus] = useState('normal')
@@ -40,11 +40,11 @@ const ClubDisplay = ({id, name, location, genre, capacity, threshold, remove, ha
             </CardHeader>
             <CardBody>
                 {editMode ? (
-                    <ClubEditForm {...{id, name, location, genre, toggle, edit}}/>
+                    <ClubEditForm {...{id, name, city, genre, toggle, edit}}/>
                 ) : (
                     <>
                         <CardTitle tag="h5">{name}</CardTitle>
-                        <CardText>location: {location || 'City'}</CardText>
+                        <CardText>location: {city || 'City'}</CardText>
                         <CardText>theme: {genre || 'Music'}</CardText>
                         <CardText>{club.vol}</CardText>
                         <CardText>{message}</CardText>

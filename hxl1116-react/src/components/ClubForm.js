@@ -6,7 +6,7 @@ import {Button, Card, CardBody, CardHeader, Col, Form, FormFeedback, FormGroup, 
 const ClubForm = ({submit}) => {
     const [data, setData] = useState({
         name: '',
-        location: '',
+        city: '',
         genre: '',
         capacity: 100,
         threshold: 80
@@ -30,9 +30,6 @@ const ClubForm = ({submit}) => {
         // Get form field value
         let value = event.target.value
 
-        // Convert 'capacity' or 'threshold' to an integer
-        if (field === 'capacity' || field === 'threshold') value = parseInt(value)
-
         // Update form field with new value
         setData(form => ({...form, [field]: value}))
 
@@ -47,7 +44,7 @@ const ClubForm = ({submit}) => {
         submit({
             name: data.get('name'),
             genre: data.get('genre'),
-            location: data.get('location'),
+            city: data.get('city'),
             capacity: data.get('capacity'),
             threshold: data.get('threshold') || data.get('capacity') * 0.8
         })
@@ -77,7 +74,7 @@ const ClubForm = ({submit}) => {
                     <Row>
                         <FormGroup>
                             <Label for="clubLoc">City</Label>
-                            <Input id="clubLoc" name="location" type="text" placeholder="Elysium"
+                            <Input id="clubLoc" name="city" type="text" placeholder="Elysium"
                                    invalid={!!errors['location']} onChange={handleChange}/>
                             <FormFeedback>A club city is required</FormFeedback>
                         </FormGroup>
@@ -112,7 +109,7 @@ const ClubForm = ({submit}) => {
                             </FormGroup>
                         </Col>
                     </Row>
-                    <Button type="submit">Submit</Button>
+                    <Button style={{width: '100%'}} type="submit">Submit</Button>
                 </Form>
             </CardBody>
         </Card>

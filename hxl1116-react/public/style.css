@@ -1,3 +1,23 @@
+@keyframes toast-in {
+  from {
+    bottom: 20%;
+    opacity: 0;
+  }
+  to {
+    bottom: 25%;
+    opacity: 1;
+  }
+}
+@keyframes toast-out {
+  from {
+    bottom: 25%;
+    opacity: 1;
+  }
+  to {
+    bottom: 20%;
+    opacity: 0;
+  }
+}
 * {
   padding: 0;
   margin: 0;
@@ -8,6 +28,16 @@ body {
   font-size: 16px;
   width: 100vw;
   height: 100vh;
+}
+
+.toast {
+  position: fixed;
+  right: 5%;
+  bottom: 25%;
+  width: 10%;
+}
+.toast.show {
+  animation: toast-in 0.3s, toast-out 0.3s 1.7s;
 }
 
 .container > .row {

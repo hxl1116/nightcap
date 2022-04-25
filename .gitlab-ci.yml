@@ -3,7 +3,7 @@ image:
 
 variables:
   APP_NAME: hxl1116-react #Change this to your React project name
-  PROJECT_NAME: client-3 #Change this when the project changes (e.g. hxl1116-react-3 etc): To your output web folder
+  PROJECT_NAME: client-4 #Change this when the project changes (e.g. hxl1116-react-3 etc): To your output web folder
   OUTPUT_DIR: public/$PROJECT_NAME
 
 

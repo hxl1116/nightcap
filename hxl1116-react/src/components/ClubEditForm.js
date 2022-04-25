@@ -1,8 +1,8 @@
 import React, {useState} from "react";
 import {Button, Col, Form, FormGroup, Input, Label} from "reactstrap";
 
-const ClubEditForm = ({id, name, location, genre, toggle, edit}) => {
-    const [data, setData] = useState({...{name, location, genre}})
+const ClubEditForm = ({id, name, city, genre, toggle, edit}) => {
+    const [data, setData] = useState({...{name, city, genre}})
 
     const handleChange = (event) => {
         let field = event.target.name
@@ -30,7 +30,7 @@ const ClubEditForm = ({id, name, location, genre, toggle, edit}) => {
             <FormGroup row>
                 <Label for="clubLoc" sm={3}>City</Label>
                 <Col sm={9}>
-                    <Input id="clubLoc" name="location" type="text" value={data.location} onChange={handleChange}/>
+                    <Input id="clubLoc" name="city" type="text" value={data.city} onChange={handleChange}/>
                 </Col>
             </FormGroup>
             <FormGroup row>
