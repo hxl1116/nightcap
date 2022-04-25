@@ -8,11 +8,11 @@ import {deleteClub, getClubs, postClub, putClub} from "../utils";
 
 const ClubsGrid = ({filter}) => {
     const [clubs, setClubs] = useState([])
-    const [msg, setMsg] = useState('')
+    const [status, setStatus] = useState({})
     const [show, setShow] = useState(false)
 
-    const displayMsg = (msg) => {
-        setMsg(msg)
+    const displayMsg = (msg, color) => {
+        setStatus({msg, color})
         setShow(true)
         window.setTimeout(() => {
             setShow(false)
@@ -21,34 +21,34 @@ const ClubsGrid = ({filter}) => {
 
     const push = (data) => {
         postClub(data)
-            .then((res) => {
-                console.log(res.status, res.statusText)
+            .then(({status}) => {
+                if (status === 201) displayMsg('Club added', 'success')
+                else displayMsg('Error adding club', 'danger')
             })
             .finally(() => {
                 refresh()
-                displayMsg('Club added')
             })
     }
 
     const remove = (id) => {
         deleteClub(id)
-            .then((res) => {
-                console.log(res.status, res.statusText)
+            .then(({status}) => {
+                if (status === 200) displayMsg('Club removed', 'success')
+                else displayMsg('Error removing club', 'danger')
             })
             .finally(() => {
                 refresh()
-                displayMsg('Club removed')
             })
     }
 
     const edit = (id, data) => {
         putClub(id, data)
-            .then((res) => {
-                console.log(res.status, res.statusText)
+            .then(({status}) => {
+                if (status === 201) displayMsg('Club updated', 'success')
+                else displayMsg('Error updating club', 'danger')
             })
             .finally(() => {
                 refresh()
-                displayMsg('Club updated')
             })
     }
 
@@ -81,8 +81,8 @@ const ClubsGrid = ({filter}) => {
                 </Col>
             </Row>
             <Toast isOpen={show}>
-                <ToastHeader icon="info">NightCap</ToastHeader>
-                <ToastBody>{msg}</ToastBody>
+                <ToastHeader icon={status.color}>NightCap</ToastHeader>
+                <ToastBody>{status.msg}</ToastBody>
             </Toast>
         </Container>
     )

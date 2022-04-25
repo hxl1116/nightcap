@@ -62,12 +62,14 @@ export const clubReducer = (state, action) => {
 export const getClubs = (update) => {
     fetch(ENDPOINT)
         .then(res => {
-            if (res.status === 200) {
-                update(res.json())
-            } else {
+            if (res.status === 200) return res.json()
+            else {
                 console.log(`HTTP error: ${res.status}: ${res.statusText}`)
                 return {'status': res.status}
             }
+        })
+        .then((json) => {
+            update(json)
         })
         .catch((err) => {
             console.error(err)
@@ -84,7 +86,7 @@ export const postClub = async (data) => {
         body: JSON.stringify(data)
     })
         .then((res) => {
-            if (res.status === 201) return res.json()
+            if (res.status === 201) return res
             else {
                 console.log(`HTTP error: ${res.status}: ${res.statusText}`)
                 return {'status': res.status}
@@ -105,7 +107,7 @@ export const putClub = async (id, data) => {
         body: JSON.stringify({id, ...data})
     })
         .then((res) => {
-            if (res.status === 201) return res.json()
+            if (res.status === 201) return res
             else {
                 console.log(`HTTP error: ${res.status}: ${res.statusText}`)
                 return {'status': res.status}
@@ -120,7 +122,7 @@ export const putClub = async (id, data) => {
 export const deleteClub = async (id) => {
     return await fetch(`${ENDPOINT}/${id}`, {method: 'DELETE'})
         .then((res) => {
-            if (res.status === 200) return res.json()
+            if (res.status === 200) return res
             else {
                 console.log(`HTTP error: ${res.status}: ${res.statusText}`)
                 return {'status': res.status}
