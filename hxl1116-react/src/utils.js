@@ -59,7 +59,7 @@ export const clubReducer = (state, action) => {
     }
 }
 
-export const fetchClubs = (update) => {
+export const getClubs = (update) => {
     fetch(ENDPOINT)
         .then(res => {
             if (res.status === 200) return res.json()
@@ -75,4 +75,28 @@ export const fetchClubs = (update) => {
             console.error(err)
             update([])
         })
+}
+
+export const postClub = async (data) => {
+    return await fetch(ENDPOINT, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+}
+
+export const putClub = async (id, data) => {
+    return await fetch(`${ENDPOINT}/${id}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({id, ...data})
+    })
+}
+
+export const deleteClub = async (id) => {
+    return await fetch(`${ENDPOINT}/${id}`, {method: 'DELETE'})
 }

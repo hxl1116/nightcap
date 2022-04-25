@@ -17,6 +17,8 @@ class Club(Resource):
 
         args = {key: val for key, val in args.items() if val is not None}
 
+        print(args)
+
         # TODO: Validate club id
         update_club(club_id, **args)
 
@@ -34,7 +36,7 @@ class ClubList(Resource):
         self.post_parser.add_argument('name', type=str, required=True)
         self.post_parser.add_argument('genre', type=str, required=True)
         self.post_parser.add_argument('city', type=str, required=True)
-        self.post_parser.add_argument('capacity', type=int, required=True)
+        self.post_parser.add_argument('capacity', type=str, required=True)
         self.post_parser.add_argument('threshold', type=int, required=True)
 
     @staticmethod

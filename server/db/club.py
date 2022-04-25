@@ -5,7 +5,7 @@ from utils import fetch_many, fetch_one, commit
 
 def get_all_clubs():
     """ Get all clubs """
-    return fetch_many("SELECT * FROM club")
+    return fetch_many("SELECT * FROM club ORDER BY id")
 
 
 def get_club(name):
@@ -22,18 +22,18 @@ def insert_club(**kwargs):
 
 def update_club(id, **kwargs):
     """ Update a club's info """
-    if len(kwargs) == 1:
-        query = SQL("""
-            UPDATE club SET {} = %s WHERE id = %s
-        """).format(SQL(', ').join(map(Identifier, list(kwargs.keys()))))
+    # if len(kwargs) == 1:
+    #     query = SQL("""
+    #         UPDATE club SET {} = %s WHERE id = %s
+    #     """).format(SQL(', ').join(map(Identifier, list(kwargs.keys()))))
+    #
+    #     commit(query, (tuple(kwargs.values()), id))
+    # else:
+    query = SQL("""
+        UPDATE club SET ({}) = %s WHERE id = %s
+    """).format(SQL(', ').join(map(Identifier, list(kwargs.keys()))))
 
-        commit(query, (tuple(kwargs.values()), id))
-    else:
-        query = SQL("""
-            UPDATE club SET ({}) = %s WHERE id = %s
-        """).format(SQL(', ').join(map(Identifier, list(kwargs.keys()))))
-
-        commit(query, (tuple(kwargs.values()), id))
+    commit(query, (tuple(kwargs.values()), id))
 
 
 def delete_club(id):

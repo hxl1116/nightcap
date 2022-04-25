@@ -6,7 +6,7 @@ import {Button, Card, CardBody, CardHeader, Col, Form, FormFeedback, FormGroup, 
 const ClubForm = ({submit}) => {
     const [data, setData] = useState({
         name: '',
-        location: '',
+        city: '',
         genre: '',
         capacity: 100,
         threshold: 80
@@ -44,7 +44,7 @@ const ClubForm = ({submit}) => {
         submit({
             name: data.get('name'),
             genre: data.get('genre'),
-            location: data.get('location'),
+            city: data.get('city'),
             capacity: data.get('capacity'),
             threshold: data.get('threshold') || data.get('capacity') * 0.8
         })
@@ -74,7 +74,7 @@ const ClubForm = ({submit}) => {
                     <Row>
                         <FormGroup>
                             <Label for="clubLoc">City</Label>
-                            <Input id="clubLoc" name="location" type="text" placeholder="Elysium"
+                            <Input id="clubLoc" name="city" type="text" placeholder="Elysium"
                                    invalid={!!errors['location']} onChange={handleChange}/>
                             <FormFeedback>A club city is required</FormFeedback>
                         </FormGroup>

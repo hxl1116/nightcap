@@ -1,32 +1,55 @@
 import React, {useEffect, useState} from "react";
 import {Col, Container, Row} from "reactstrap";
-import _ from 'lodash'
 
 import ClubDisplay from "./ClubDisplay";
 import ClubForm from "./ClubForm";
 
-import {fetchClubs} from "../utils";
+import {deleteClub, getClubs, postClub, putClub} from "../utils";
 
 const ClubsGrid = ({filter}) => {
     const [clubs, setClubs] = useState([])
+
     const push = (data) => {
-        setClubs(clubs => ([...clubs, {...data, id: _.camelCase(data.name)}]))
+        postClub(data)
+            .then((res) => {
+                console.log(res.status, res.statusText)
+            })
+            .finally(() => {
+                getClubs(setClubs)
+            })
     }
 
     const remove = (id) => {
-        setClubs(clubs.filter(club => club.id !== id))
+        // TODO: Send DELETE request
+        // setClubs(clubs.filter(club => club.id !== id))
+        deleteClub(id)
+            .then((res) => {
+                console.log(res.status, res.statusText)
+            })
+            .finally(() => {
+                getClubs(setClubs)
+            })
     }
 
     const edit = (id, data) => {
-        let idx = clubs.findIndex(club => club.id === id)
+        // TODO: Send PUT request
+        // let idx = clubs.findIndex(club => club.id === id)
 
-        remove(id)
+        // remove(id)
 
-        setClubs([...clubs.slice(0, idx), {...data, id}, ...clubs.slice(idx + 1)])
+        // setClubs([...clubs.slice(0, idx), {...data, id}, ...clubs.slice(idx + 1)])
+
+        putClub(id, data)
+            .then((res) => {
+                console.log(res.status, res.statusText)
+            })
+            .finally(() => {
+                getClubs(setClubs)
+            })
     }
 
     useEffect(() => {
-        fetchClubs(setClubs)
+        getClubs(setClubs)
     }, [])
 
     return (
