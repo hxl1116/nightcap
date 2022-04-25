@@ -20,7 +20,6 @@ const ClubsGrid = ({filter}) => {
     }
 
     const push = (data) => {
-        // TODO: Add error handling, alerts
         postClub(data)
             .then((res) => {
                 console.log(res.status, res.statusText)
@@ -32,7 +31,6 @@ const ClubsGrid = ({filter}) => {
     }
 
     const remove = (id) => {
-        // TODO: Add error handling, alerts
         deleteClub(id)
             .then((res) => {
                 console.log(res.status, res.statusText)
@@ -44,7 +42,6 @@ const ClubsGrid = ({filter}) => {
     }
 
     const edit = (id, data) => {
-        // TODO: Add error handling, alerts
         putClub(id, data)
             .then((res) => {
                 console.log(res.status, res.statusText)

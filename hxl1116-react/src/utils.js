@@ -62,14 +62,12 @@ export const clubReducer = (state, action) => {
 export const getClubs = (update) => {
     fetch(ENDPOINT)
         .then(res => {
-            if (res.status === 200) return res.json()
-            else {
+            if (res.status === 200) {
+                update(res.json())
+            } else {
                 console.log(`HTTP error: ${res.status}: ${res.statusText}`)
                 return {'status': res.status}
             }
-        })
-        .then((json) => {
-            update(json)
         })
         .catch((err) => {
             console.error(err)
