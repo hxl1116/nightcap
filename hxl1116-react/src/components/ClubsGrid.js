@@ -1,14 +1,14 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Col, Container, Row} from "reactstrap";
 import _ from 'lodash'
 
 import ClubDisplay from "./ClubDisplay";
 import ClubForm from "./ClubForm";
 
-import {CLUBS} from "../utils";
+import {fetchClubs} from "../utils";
 
 const ClubsGrid = ({filter}) => {
-    const [clubs, setClubs] = useState(CLUBS)
+    const [clubs, setClubs] = useState([])
     const push = (data) => {
         setClubs(clubs => ([...clubs, {...data, id: _.camelCase(data.name)}]))
     }
@@ -24,6 +24,10 @@ const ClubsGrid = ({filter}) => {
 
         setClubs([...clubs.slice(0, idx), {...data, id}, ...clubs.slice(idx + 1)])
     }
+
+    useEffect(() => {
+        fetchClubs(setClubs)
+    }, [])
 
     return (
         <Container>

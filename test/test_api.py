@@ -35,11 +35,14 @@ class TestClub(TestCase):
         self.assertEqual(name, club['name'])
         self.assertEqual(city, club['city'])
 
+    # TODO: Add assert
     def test_post(self):
-        pass
+        params = {'name': 'Goofy Ahh', 'city': 'Quan Dale', 'genre': 'Dingle', 'capacity': 100, 'threshold': 80}
+
+        post_rest_call(self, f'{self.endpoint}', params)
 
     def test_delete(self):
-        pass
+        delete_rest_call(self, f'{self.endpoint}/{self.club["id"]}')
 
     def tearDown(self) -> None:
         commit("CALL reload_club_data()")

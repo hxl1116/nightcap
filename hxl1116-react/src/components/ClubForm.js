@@ -30,9 +30,6 @@ const ClubForm = ({submit}) => {
         // Get form field value
         let value = event.target.value
 
-        // Convert 'capacity' or 'threshold' to an integer
-        if (field === 'capacity' || field === 'threshold') value = parseInt(value)
-
         // Update form field with new value
         setData(form => ({...form, [field]: value}))
 

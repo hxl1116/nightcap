@@ -33,6 +33,8 @@ export const CLUBS = [
     }
 ]
 
+const ENDPOINT = '/clubs'
+
 // Club capacity levels
 export const CAP_MSG = {
     normal: {color: 'success', message: 'Welcome!'},
@@ -55,4 +57,22 @@ export const clubReducer = (state, action) => {
         default:
             throw new Error(`Unknown type: ${action.type}`)
     }
+}
+
+export const fetchClubs = (update) => {
+    fetch(ENDPOINT)
+        .then(res => {
+            if (res.status === 200) return res.json()
+            else {
+                console.log(`HTTP error: ${res.status}: ${res.statusText}`)
+                return {'status': res.status}
+            }
+        })
+        .then((json) => {
+            update(json)
+        })
+        .catch((err) => {
+            console.error(err)
+            update([])
+        })
 }

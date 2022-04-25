@@ -45,3 +45,5 @@ class ClubList(Resource):
         args = self.post_parser.parse_args()
 
         insert_club(**args)
+
+        return '', 201

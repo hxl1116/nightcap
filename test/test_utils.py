@@ -13,7 +13,7 @@ def put_rest_call(test, url, params=None, put_header=None, expected_code=201):
     return response.json()
 
 
-def post_rest_call(test, url, params=None, post_header=None, expected_code=200):
+def post_rest_call(test, url, params=None, post_header=None, expected_code=201):
     response = requests.post(url, params, headers=post_header)
     test.assertEqual(expected_code, response.status_code, f'Response code to {url} not {expected_code}')
     return response.json()
