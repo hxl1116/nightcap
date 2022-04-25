@@ -10,6 +10,7 @@ const ClubsGrid = ({filter}) => {
     const [clubs, setClubs] = useState([])
 
     const push = (data) => {
+        // TODO: Add error handling, alerts
         postClub(data)
             .then((res) => {
                 console.log(res.status, res.statusText)
@@ -20,8 +21,7 @@ const ClubsGrid = ({filter}) => {
     }
 
     const remove = (id) => {
-        // TODO: Send DELETE request
-        // setClubs(clubs.filter(club => club.id !== id))
+        // TODO: Add error handling, alerts
         deleteClub(id)
             .then((res) => {
                 console.log(res.status, res.statusText)
@@ -32,13 +32,7 @@ const ClubsGrid = ({filter}) => {
     }
 
     const edit = (id, data) => {
-        // TODO: Send PUT request
-        // let idx = clubs.findIndex(club => club.id === id)
-
-        // remove(id)
-
-        // setClubs([...clubs.slice(0, idx), {...data, id}, ...clubs.slice(idx + 1)])
-
+        // TODO: Add error handling, alerts
         putClub(id, data)
             .then((res) => {
                 console.log(res.status, res.statusText)
